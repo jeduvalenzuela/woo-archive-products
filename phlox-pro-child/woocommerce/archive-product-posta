@@ -1,0 +1,231 @@
+<?php
+/**
+ * The Template for displaying product archives, including the main shop page which is a post type archive
+ *
+ * This template can be overridden by copying it to yourtheme/woocommerce/archive-product.php.
+ *
+ * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * (the theme developer) will need to copy the new files to your theme to
+ * maintain compatibility. We try to do this as little as possible, but it does
+ * happen. When this occurs the version of the template file will be bumped and
+ * the readme will list any important changes.
+ *
+ * @see https://docs.woocommerce.com/document/template-structure/
+ * @package WooCommerce\Templates
+ * @version 3.4.0
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+get_header(  );
+
+$conectividad = $_POST['conectividad']
+
+
+
+?>
+
+
+
+
+
+
+<header class="woocommerce-products-header">
+	<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
+		<h1 class="woocommerce-products-header__title page-title"><?php woocommerce_page_title();?></h1>
+        
+	<?php endif; ?>
+
+	<?php
+	/**
+	 * Hook: woocommerce_archive_description.
+	 *
+	 * @hooked woocommerce_taxonomy_archive_description - 10
+	 * @hooked woocommerce_product_archive_description - 10
+	 */
+	do_action( 'woocommerce_archive_description' );
+    
+	?>
+    
+
+</header>
+
+<div style="display:flex">
+    <div style="width: 20%; height:100vh; float: left;padding:15px;">
+        <h5>Espacio Filtros</h5>
+
+        <form method="post" action="" name="filtros-fibra" action="">
+            <h4>Conectividad</h4>
+            <fieldset> 
+                <input value="fibra-movil" name="conectividad" type="radio">Todos los planes<br>
+                <input value="hasta-100-mb" name="conectividad" type="radio">Hasta 100MB<br>
+                <input value="hasta-300-mb" name="conectividad" type="radio">Hasta 300MB<br>
+                <input value="hasta-600-mb" name="conectividad" type="radio">Hasta 600MB<br>
+                <input value="hasta-1000-mb" name="conectividad" type="radio">Hasta 1000MB<br>
+            </fieldset> 
+            <h4>Cobertura</h4>
+            <fieldset>
+                <input value="red-masmovil" name="masmovil" type="checkbox">Red Mas Movil<br>
+                <input value="red-movistar" name="movistar" type="checkbox">Red Movistar<br>
+                <input value="red-netllar" name="netllar" type="checkbox">Red Netllar<br>
+                <input value="red-orange" name="orange" type="checkbox">Red Orange<br>
+            </fieldset>
+        </form>
+
+
+
+        <!--div id = "filterToggle" class = "button" style = "display: none"> Filtro </div>
+<div id = "filterBlock">
+	<div class = "block_caption">
+		Filtrar
+	</div>
+	<div class = "block_body">
+		
+		<div id = "wc_filter">
+			<?php
+			echo wc_getProp ('nombre = global_attr & query = or');
+			/*
+			name = 'babosa de atributo global'
+			tipo = 'color', 'entrada', 'seleccionar', ''
+			qyery = 'o', 'y'
+			init = 'dimensión de la etiqueta, ejemplo "kg"'
+			nolabel = 'true', '' - mostrar / ocultar el nombre de los elementos, útil para type = 'color'
+			*/
+			dynamic_sidebar ('filter_price');
+			?>
+			<div class = "wc_filter_buttons">
+				<button class = "btn red" id = "wc_filter_reset_but"> Restablecer </button>
+				<button class = "btn" id = "wc_filter_but"> Filtro </button>
+			</div>
+		</div>
+		
+	</div>
+</div-->
+        
+<?php   /*     $queried_object = get_queried_object();
+$parent = $queried_object->term_id;
+$categories = get_term_children( $parent, 'product_cat' ); 
+if ( $categories && ! is_wp_error( $category ) ) : 
+
+echo '<ul>';
+
+foreach($categories as $category) :
+
+$term = get_term( $category, 'product_cat' );
+echo '<li>';
+echo '<a href="'.get_term_link($term).'" >';
+echo $term->name;
+echo '</a>';
+echo '</li>';
+
+endforeach;
+
+echo '</ul>';
+
+endif;*/?>
+
+
+
+
+<style>
+    .product-category img{
+    display: none;
+}
+li {
+    list-style:none;
+}
+.product-category h2{
+    font-size: 13px;
+
+}
+</style>
+        <?php //echo do_shortcode("[product_categories]");?>
+        <!--CATEGORIAS-->
+
+
+
+
+
+
+
+    </div>
+    <div style="width: 79%; padding:20px;">
+        <!--div style="padding:10px; border-style: solid;
+        border-width: 1px 1px 1px 1px;
+        border-color: #00000024;
+        border-radius:40px;"-->
+    <?php
+/**
+ * Hook: woocommerce_before_main_content.
+ *
+ * @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
+ * @hooked woocommerce_breadcrumb - 20
+ * @hooked WC_Structured_Data::generate_website_data() - 30
+ */
+//do_action( 'woocommerce_before_main_content' );
+
+?>
+
+<br>
+<?php
+if ( woocommerce_product_loop() ) {
+
+    /**
+	 * Hook: woocommerce_before_shop_loop.
+	 *
+	 * @hooked woocommerce_output_all_notices - 10
+	 * @hooked woocommerce_result_count - 20
+	 * @hooked woocommerce_catalog_ordering - 30
+	 */
+	do_action( 'woocommerce_before_shop_loop' );
+
+	//woocommerce_product_loop_start();
+
+	if ( wc_get_loop_prop( 'total' ) ) {
+		while ( have_posts() ) {
+			the_post();
+
+			/**
+			 * Hook: woocommerce_shop_loop.
+			 */
+			//do_action( 'woocommerce_shop_loop' );
+
+			wc_get_template_part( 'content', 'product' );
+		}
+	}
+
+	//woocommerce_product_loop_end();
+
+	/**
+	 * Hook: woocommerce_after_shop_loop.
+	 *
+	 * @hooked woocommerce_pagination - 10
+	 */
+	do_action( 'woocommerce_after_shop_loop' );
+} else {
+	/**
+	 * Hook: woocommerce_no_products_found.
+	 *
+	 * @hooked wc_no_products_found - 10
+	 */
+	do_action( 'woocommerce_no_products_found' );
+}
+
+/**
+ * Hook: woocommerce_after_main_content.
+ *
+ * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+ */
+do_action( 'woocommerce_after_main_content' );
+
+/**
+ * Hook: woocommerce_sidebar.
+ *
+ * @hooked woocommerce_get_sidebar - 10
+ */
+?>
+</div>    
+</div>
+
+<?php
+get_footer( );

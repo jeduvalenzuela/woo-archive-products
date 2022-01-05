@@ -1,0 +1,59 @@
+<?php
+/**
+ * The Template for displaying product archives, including the main shop page which is a post type archive
+ *
+ * This template can be overridden by copying it to yourtheme/woocommerce/archive-product.php.
+ *
+ * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * (the theme developer) will need to copy the new files to your theme to
+ * maintain compatibility. We try to do this as little as possible, but it does
+ * happen. When this occurs the version of the template file will be bumped and
+ * the readme will list any important changes.
+ *
+ * @see https://docs.woocommerce.com/document/template-structure/
+ * @package WooCommerce\Templates
+ * @version 3.4.0
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+get_header(  );
+
+$conectividad = $_POST['conectividad'];
+
+
+
+?>
+
+<div style="display:flex">
+    <div style="width: 20%; height:100vh; float: left;padding:15px;">
+        <h5>Espacio Filtros</h5>
+
+        <form method="post" action="" name="filtros-fibra" action="">
+            <h4>Conectividad</h4>
+            <fieldset> 
+                <input value="fibra-movil" name="conectividad" type="radio">Todos los planes<br>
+                <input value="hasta-100-mb" name="conectividad" type="radio">Hasta 100MB<br>
+                <input value="hasta-300-mb" name="conectividad" type="radio">Hasta 300MB<br>
+                <input value="hasta-600-mb" name="conectividad" type="radio">Hasta 600MB<br>
+                <input value="hasta-1000-mb" name="conectividad" type="radio">Hasta 1000MB<br>
+            </fieldset> 
+            <h4>Cobertura</h4>
+            <fieldset onchange="this.form.submit">
+                <input value="red-masmovil" name="masmovil" type="checkbox">Red Mas Movil<br>
+                <input value="red-movistar" name="movistar" type="checkbox">Red Movistar<br>
+                <input value="red-netllar" name="netllar" type="checkbox">Red Netllar<br>
+                <input value="red-orange" name="orange" type="checkbox">Red Orange<br>
+            </fieldset>
+        </form>
+
+    </div>
+    <div style="width: 79%; padding:20px;">
+
+<br>
+
+</div>    
+</div>
+
+<?php
+get_footer( );
